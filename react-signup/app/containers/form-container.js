@@ -2,10 +2,11 @@ import React from 'react'
 import Formsy from 'formsy-react'
 import FluxHeader from '../components/flux-header'
 import MyInput from '../components/my-input'
+import MySelect from '../components/my-select'
 import MyTextarea from '../components/my-textarea'
 import SectionTitle from '../components/section-title'
 import HttpHelpers from '../utils/http-helpers'
-
+import { countryList } from '../utils/country-list'
 
 var redirectUrl = window.location.href + '/step2'
 
@@ -24,7 +25,7 @@ const FormContainer = React.createClass({
     if (data.referred_by === undefined) { data.referred_by = ""}
     if (data.member_comment === undefined) { data.member_comment = ""}
     data.dob = data.dobYear + '-' + data.dobMonth + '-' + data.dobDay + 'T12:00:00'
-    data.address = data.addr_street + '; ' + data.addr_suburb + '; ' + data.addr_postcode
+    data.address = data.addr_street + '; ' + data.addr_suburb + '; ' + data.addr_postcode + '; ' + data.addr_country
     data.name = data.fname + " " + data.mnames + " " + data.lname
 
     this.setState({isLoading: true})
@@ -94,6 +95,8 @@ const FormContainer = React.createClass({
             value={false} />
         </div>
 
+
+
         <div className="px2 pb4">
           <SectionTitle text="1. Names"/>
 
@@ -159,6 +162,14 @@ const FormContainer = React.createClass({
             }}
             autocomplete="postal-code"
             required />
+
+          <MySelect
+            inputClass="input"
+            name="addr_country"
+            title="Country"
+            value="Australia"
+            options={countryList}
+            />
 
           <SectionTitle text="3. Date of Birth" infoText="(Required by AEC)"/>
           <div className="flex mxn1">
