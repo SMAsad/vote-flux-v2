@@ -5,7 +5,7 @@ dark-theme: true
 title: Blog
 nav-title: Blog
 group: navigation
-nav-order: 10
+nav-order: 15
 ---
 
 {% include navbar.html %}
@@ -31,8 +31,8 @@ nav-order: 10
 	</ul>-->
 	{% for post in site.posts %}
 		<article class="py4 bg-black light-gray inline-block col-6 left">
-			<a href="{{ post.url }}" class="max-width-4 mx-auto px2 md-px3">
-				<div class="lg-flex mxn2">
+			<div class="max-width-4 mx-auto px2 md-px3">
+				<a href="{{ post.url }}" class="lg-flex mxn2">
 					<div class="lg-col-12 px2 lg-px3 ">
 						<h2 class="mb0 h0 line-height-2 bold  white line-height-2">{{ post.title }}</h2>
 						<p class="h-font h3 sm-h2 light silver mb3">Excerpt here</p>
@@ -41,8 +41,8 @@ nav-order: 10
 					<div class="lg-col-8 px2 lg-px3">
 						
 					</div>
-				</div>
-			</a>
+				</a>
+			</div>
 		</article>
 	{% endfor %}
 	
