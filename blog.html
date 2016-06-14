@@ -31,11 +31,12 @@ nav-order: 15
 	</ul>-->
 	{% for post in site.posts %}
 		<article class="py4 bg-black light-gray inline-block col-6 left">
-			<div class="max-width-4 mx-auto px2 md-px3">
-				<a href="{{ post.url }}" class="lg-flex mxn2">
+			<div class="mx-auto px3 md-px3">
+				<a href="{{ post.url }}" class="mxn2">
 					<div class="lg-col-12 px2 lg-px3 ">
 						<h2 class="mb0 h0 line-height-2 bold  white line-height-2">{{ post.title }}</h2>
-						<p class="h-font h3 sm-h2 light silver mb3">Excerpt here</p>
+						<strong>Posted on {{ post.date | date: '%B %d, %Y' }}</strong>
+						<p class="h-font h4 sm-h6 light silver mb3">{{ post.excerpt | remove: '<p>' | remove: '</p>'  }}</p>
 					</div>
 					
 					<div class="lg-col-8 px2 lg-px3">
