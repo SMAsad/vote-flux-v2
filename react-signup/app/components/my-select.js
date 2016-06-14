@@ -5,6 +5,16 @@ const MySelect = React.createClass({
   mixins: [Formsy.Mixin],
   changeValue(event) {
     this.setValue(event.currentTarget.value);
+    var val = event.currentTarget.value;
+
+    if (typeof this.props.onChange === 'function') {
+      if (val === "Australia") {
+        this.props.onChange(true); // call parent onChange method
+      } else {
+        this.props.onChange(false);
+      }
+
+     }
   },
   render() {
     const className = 'form-group relative' + ' ' + (this.props.className || ' ') + ( this.showRequired() ? 'required' : this.showError() ? 'error' : this.isPristine() ? " " : "success");
@@ -25,7 +35,9 @@ const MySelect = React.createClass({
           className={this.props.inputClass}
           name={this.props.name}
           onChange={this.changeValue}
-          value={this.getValue()} >
+          value={this.getValue()}
+
+          >
           {options}
         </select>
 

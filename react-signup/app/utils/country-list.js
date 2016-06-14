@@ -1,4 +1,9 @@
 export var countryList =[
+  {"value": "Australia", "code": "AU"},
+  {"value": "Canada", "code": "CA"},
+  {"value": "New Zealand", "code": "NZ"},
+  {"value": "United Kingdom", "code": "GB"},
+  {"value": "United States", "code": "US"},
   {"value": "Afghanistan", "code": "AF"},
   {"value": "Åland Islands", "code": "AX"},
   {"value": "Albania", "code": "AL"},
