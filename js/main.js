@@ -1,4 +1,4 @@
-var checkReferrer = (function() {
+checkReferrer = (function() {
   return {
     addTestParam: function (val) {
       if (location.href.indexOf("?") === -1) {
@@ -42,62 +42,82 @@ $(document).ready(function() {
   //     }
   // }
 
-if ( $('#js-candidates').length != 0 ) {
-  // init slick carousel
-  $('#js-candidates').slick({
-    autoplay: false,
-    accessibility: true,
-    pauseOnHover: true,
-    speed: 700,
-    arrows: true,
-    focusOnSelect: false,
-    cssEase: 'ease',
-    dots: true,
-    responsive: [
-      {
-        breakpoint: 2000,
-        settings: {
-          autoplay: true,
-          autoplaySpeed: 4000,
-          speed: 1000,
-          slidesToShow: 3,
-          slidesToScroll: 3
+
+  // countdown
+  if( $('#clock').length ) {
+    var countdownTo = new Date(1465948800*1000);  // June 15th 10am
+
+    $('#clock').countdown(countdownTo, function(event) {
+       $(this).html(event.strftime(
+            '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%d</h3> <h6 class="m0 muted">Day%!D</h6> </div>'
+          + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%H</h3> <h6 class="m0 muted">Hour%!H</h6> </div>'
+          + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%M</h3> <h6 class="m0 muted">Minute%!M</h6> </div>'
+          + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%S</h3> <h6 class="m0 muted">Second%!S</h6> </div>' + '</div>'));
+    })
+    .on('finish.countdown', function(event){
+      $(this).html('THE BIG ANNOUNCEMENT!');
+    });
+
+    var countDownHeight = $("#countdown-wrapper").outerHeight(true);
+    $('footer').css({'margin-bottom': countDownHeight + 'px'})
+  }
+
+  if ( $('#js-candidates').length != 0 ) {
+    // init slick carousel
+    $('#js-candidates').slick({
+      autoplay: false,
+      accessibility: true,
+      pauseOnHover: true,
+      speed: 700,
+      arrows: true,
+      focusOnSelect: false,
+      cssEase: 'ease',
+      dots: true,
+      responsive: [
+        {
+          breakpoint: 2000,
+          settings: {
+            autoplay: true,
+            autoplaySpeed: 4000,
+            speed: 1000,
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 1024,
+          settings: {
+            autoplay: true,
+            autoplaySpeed: 4000,
+            speed: 1000,
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            autoplay: true,
+            autoplaySpeed: 4000,
+            speed: 1000,
+            slidesToShow: 1,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: false
+          }
         }
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          autoplay: true,
-          autoplaySpeed: 4000,
-          speed: 1000,
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          autoplay: true,
-          autoplaySpeed: 4000,
-          speed: 1000,
-          slidesToShow: 1,
-          slidesToScroll: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false
-        }
-      }
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
-    ]
-  })
-};
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
+    })
+  };
 
 
 
@@ -164,16 +184,20 @@ if ( $('#js-candidates').length != 0 ) {
         console.log('error')
       },
       success: function(response) {
-        var data = JSON.parse(response)
-        var memberCount = data.n_members
-        var el = document.getElementById("js-member-count")
-        var elMobile = document.getElementById("js-member-count-mobile")
+        var data = JSON.parse(response);
+        var memberCount = data.n_members;
+        var el = document.getElementById("js-member-count");
+        var elMobile = document.getElementById("js-member-count-mobile");
+        var volCountEl = document.getElementById("js-volunteer-count");
+        var volCountElMobile = document.getElementById("js-volunteer-count-mobile");
 
-        if (el) {
-          el.innerHTML = memberCount.toString()
+        if (Boolean(el)) {
+          el.innerHTML = memberCount.toString();
+          volCountEl.innerHTML = data.n_volunteers;
         }
-        if (elMobile) {
-          elMobile.innerHTML = memberCount.toString()
+        if (Boolean(elMobile)) {
+          elMobile.innerHTML = memberCount.toString();
+          volCountElMobile.innerHTML = data.n_volunteers;
         }
       },
       type: 'GET'
