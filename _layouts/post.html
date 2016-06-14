@@ -5,7 +5,15 @@ header-theme: light
 {% include base.html %}
 {% capture page_url %}https:/{{site.baseurl}}{{page.url}}{% endcapture %}
 {% include navbar.html%}
-<div class="full-bg-img height-30vh">
+<div class="bg-near-black texture-bg-img height-30vh py4">
+	<div class="max-width-4 mx-auto px2 sm-px3 pt5">
+	  {% include components/main-heading.html
+	    text=""
+	    font-size="h0"
+	    font-weight="bold"
+	    line="true"
+	    classes="white" %}
+	</div>
 </div>
 
 <main class="bg-white mid-gray pb4 pt3 sm-pt5 px2 sm-px3">
