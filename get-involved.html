@@ -1,0 +1,137 @@
+---
+layout: default
+dark-theme: true
+permalink: /get-involved/
+title: Get Involved
+nav-title: Get Involved
+group: navigation
+nav-order: 35
+
+detail:
+ - copy: | 
+     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+volunteer:
+ - title: Staff Campaign Contact Info
+   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   contacts:
+      - title: "National Campaign Field Organiser"
+        name: "Zee Cohen"
+        phone: "0412 041 705"
+        email: "zee.cohen@voteflux.org"
+      - title: "Campaign Administrator"
+        name: "Eli Sanchez"
+        phone: "0401 371 992"
+        email: "eli.sanchez@voteflux.org"
+     
+ - title: Flux Headquarters
+   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   copy: |
+
+   offices:
+      - title: "Sydney"
+        address: "130 George Street, Level 25 Office #264, Parramatta NSW 2150"
+        mapslink: "https://goo.gl/maps/D6StvKN8d1H2"
+      - title: "Melbourne"
+        address: "189 Flinders Lane Melbourne VIC 3000"
+        mapslink: "https://goo.gl/maps/4jZYuBqxFnB2"
+      - title: "Launceston"
+        address: "128 St John Street Launceston TAS 7250"
+        mapslink: "https://goo.gl/maps/WQDexT7hHXk"
+        
+ - title: Local Events
+   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   socialfeed: true
+
+---
+
+{% include navbar.html %}
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1066378810108588',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+// Only works after `FB.init` is called
+function myFacebookLogin() {
+  FB.login(function(){}, {scope: 'publish_actions'});
+}
+</script>
+
+
+<div class="bg-near-white dark-gray py4 ">
+	
+	<!-- Use provided imagery here -->
+	<div class="bg-near-black height-40vh absolute z1 left-0 top-0 col-12 texture-bg-img"></div>
+  
+	<div class="mx-auto max-width-3 px2 sm-px4 pt4 pb3 bg-white relative mt5 z2">
+		<!-- <div class="max-width-3 mx-auto px2 sm-px3 pt4 pb3 bg-white"> -->
+		{% include components/main-heading.html
+		text="Ways to get involved"
+		font-size="h0"
+		font-weight="bold"
+		line="true" %}
+		
+		<div class="mb3 pb3 border-bottom">
+			{% for detail in page.detail %}
+				<p>{{ detail.copy }}</p>
+			{% endfor %}
+		</div>
+		
+		{% for volunteer in page.volunteer %}
+			<div class="mb3 pb3 clearfix border-bottom">
+				<h3 class="bold">{{forloop.index}}. {{volunteer.title}}</h3>
+				
+				{% if volunteer.byline %}<p class="mid-gray">{{volunteer.byline}}</p>{% endif %}
+				
+				{% if volunteer.byline %}<p class="mid-gray h5">{{volunteer.copy}}</p>{% endif %}
+				
+				{% if volunteer.contacts %}
+					<div class="h5">
+						{% for contacts in volunteer.contacts %}
+							<p class="max-width-4 mx-auto h5 sm-col-12 lg-col-6 left"><strong>{{contacts.title}}</strong><br />
+						    <i class="material-icons icon-marker h5">account_circle</i>{{contacts.name}}<br />
+						    <i class="material-icons icon-marker h4">phone</i>{{contacts.phone}}<br />
+						    <a href="mailto:{{contacts.email}}?subject=Ways%20to%20get%20involved" ><i class="material-icons icon-marker h5">mail</i></i>{{contacts.email}}</a>
+						    </p>
+						{% endfor %}
+					</div>
+				{% endif %}
+				
+				{% if volunteer.offices %}
+					<div class="h5">
+						{% for offices in volunteer.offices %}
+							<a class="label-marker" href="{{offices.mapslink}}"><strong>{{offices.title}}</strong></a>{{offices.address}}<br />
+						{% endfor %}
+					</div>
+				{% endif %}
+				
+				{% if volunteer.socialfeed %}
+					Facebook events feed to be placed here
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+  
+  
+	<div class="max-width-3 mx-auto">
+		{% include components/inline-social.html %}
+		<div class="mt4"><i class="material-icons mr1">arrow_back</i><a href="{{site.baseurl}}/" class="inline-block">Back to home page</a></div>
+	</div>
+
+</div>
+
+{% include footer.html %}

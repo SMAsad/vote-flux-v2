@@ -219,3 +219,22 @@ a {
   border: solid 1px $light-silver;
   margin-bottom: -1px;
 }
+
+
+
+
+/* Icons & Labels */
+.icon-marker, .label-marker {
+	position: relative; display: inline-block;
+	margin: 0; padding: 0;
+	
+	width: 25px;
+}
+
+.label-marker {
+	width: 100px;
+}
+
+.bg-facebook {
+	background-color: #3b5998 !important;
+}
