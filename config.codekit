@@ -1105,11 +1105,11 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
-	"\/_site\/404.html": {
+	"\/_site\/404\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/_site\/404.html",
+		"inputAbbreviatedPath": "\/_site\/404\/index.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -3640,6 +3640,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/react-signup\/app\/index.js",
 		"outputAbbreviatedPath": "\/react-signup\/app\/min\/index-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/react-signup\/app\/utils\/country-list.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/react-signup\/app\/utils\/country-list.js",
+		"outputAbbreviatedPath": "\/react-signup\/app\/utils\/min\/country-list-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

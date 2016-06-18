@@ -42,6 +42,33 @@ volunteer:
  - title: Local Events
    byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
    socialfeed: true
+   
+ - title: Volunteer Staff
+   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   groups:
+      - grouptitle: "Team NSW"
+        people: 
+          - name: "Alex Arathoon"
+            email: "alexxander78@gmail.com"
+          - name: "Jonathan Bluhdorn"
+            email: "jonathankbluhdor@gmail.com"
+      - grouptitle: "Team QLD"
+        people: 
+          - name: "Tarik Telesnitsky"
+            email: "t.n.telesnitsky@gmail.com"
+          - name: "Tom Carey"
+            email: "t.carey2@uq.edu.au"
+      - grouptitle: "Team VIC"
+        people: 
+          - name: "Stephen Waddell"
+            email: "Stephen.waddell@auspost.com.au"
+          - name: "Brad Ross"
+            email: "brad@bradleygross.org"
+      - grouptitle: "Team TAS"
+        people: 
+          - name: "Tobias Hendry"
+            email: "Tobias.hendry@voteflux.org"
+        
 
 ---
 
@@ -115,6 +142,19 @@ function myFacebookLogin() {
 					<div class="h5">
 						{% for offices in volunteer.offices %}
 							<a class="label-marker" href="{{offices.mapslink}}"><strong>{{offices.title}}</strong></a>{{offices.address}}<br />
+						{% endfor %}
+					</div>
+				{% endif %}
+				
+				{% if volunteer.groups %}
+					<div class="sm-h6 lg-h5">
+						{% for groups in volunteer.groups %}
+							<div class="col col-3">
+								<strong>{{groups.grouptitle}}</strong><br />
+								{% for people in groups.people %}
+									<a href="mailto:{{people.email}}?subject=Ways%20to%20get%20involved" ><i class="material-icons icon-marker h5">mail</i></i>{{people.name}}</a><br />
+								{% endfor %}
+							</div>
 						{% endfor %}
 					</div>
 				{% endif %}

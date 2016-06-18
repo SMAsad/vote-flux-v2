@@ -965,6 +965,24 @@ select {
   .h0 {
     font-size: 4rem; }
 
+  .lg-h1 {
+    font-size: 2rem; }
+
+  .lg-h2 {
+    font-size: 1.5rem; }
+
+  .lg-h3 {
+    font-size: 1.25rem; }
+
+  .lg-h4 {
+    font-size: 1rem; }
+
+  .lg-h5 {
+    font-size: 0.875rem; }
+
+  .lg-h6 {
+    font-size: 0.75rem; }
+
   .sm-h1 {
     font-size: 2rem; }
 
@@ -972,7 +990,16 @@ select {
     font-size: 1.5rem; }
 
   .sm-h3 {
-    font-size: 1.25rem; } }
+    font-size: 1.25rem; }
+
+  .sm-h4 {
+    font-size: 1rem; }
+
+  .sm-h5 {
+    font-size: 0.875rem; }
+
+  .sm-h6 {
+    font-size: 0.75rem; } }
 /* Basscss Typography */
 .font-family-inherit {
   font-family: inherit; }
