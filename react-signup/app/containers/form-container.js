@@ -2,12 +2,15 @@ import React from 'react'
 import Formsy from 'formsy-react'
 import FluxHeader from '../components/flux-header'
 import MyInput from '../components/my-input'
+import MySelect from '../components/my-select'
 import MyTextarea from '../components/my-textarea'
 import SectionTitle from '../components/section-title'
 import HttpHelpers from '../utils/http-helpers'
-
+import { countryList } from '../utils/country-list'
 
 var redirectUrl = window.location.href + '/step2'
+
+
 
 const FormContainer = React.createClass({
   getInitialState() {
@@ -16,7 +19,9 @@ const FormContainer = React.createClass({
       isLoading: false,
       validationErrors: {},
       serverErrorMsg: false,
-      serverSuccessMsg: false
+      serverSuccessMsg: false,
+      showAEC: true,
+      country: "Australia"
     };
   },
   submit(data) {
@@ -24,7 +29,7 @@ const FormContainer = React.createClass({
     if (data.referred_by === undefined) { data.referred_by = ""}
     if (data.member_comment === undefined) { data.member_comment = ""}
     data.dob = data.dobYear + '-' + data.dobMonth + '-' + data.dobDay + 'T12:00:00'
-    data.address = data.addr_street + '; ' + data.addr_suburb + '; ' + data.addr_postcode
+    data.address = data.addr_street + '; ' + data.addr_suburb + '; ' + data.addr_postcode + '; ' + data.addr_country
     data.name = data.fname + " " + data.mnames + " " + data.lname
 
     this.setState({isLoading: true})
@@ -39,9 +44,10 @@ const FormContainer = React.createClass({
           isLoading: false,
           serverSuccessMsg: "Success"
         });
-        setTimeout(function() {
-          window.location.assign(redirectUrl)
-        }, 1500);
+        // setTimeout(function() {
+        //   window.location.assign(redirectUrl)
+        // }, 1500);
+
 
         ga('send', {hitType: 'event', eventCategory: 'Membership Form', eventAction: 'Submission'});
         fbq('track', 'Complete Registration');
@@ -66,11 +72,14 @@ const FormContainer = React.createClass({
   disableButton() {
     this.setState({ canSubmit: false });
   },
-
+  checkCountry: function(bool) {
+    this.setState({ showAEC: bool })
+  },
 
   render() {
     return (
       <Formsy.Form
+        ref="form"
         onSubmit={this.submit}
         onValid={this.enableButton}
         onInvalid={this.disableButton}
@@ -85,13 +94,26 @@ const FormContainer = React.createClass({
             </p>
           </div>
 
-          <MyInput
-            inputClass="checkbox"
-            type="checkbox"
-            name="onAECRoll"
-            title="I am on the Australian Electoral Roll."
-            validationError="First name is required"
-            value={false} />
+          <MySelect
+            ref="country"
+            inputClass="input mb3"
+            name="addr_country"
+            title="Country"
+            value="Australia"
+            options={countryList}
+            onChange={this.checkCountry.bind(this)}
+            />
+
+          { this.state.showAEC
+            &&
+            <MyInput
+              inputClass="checkbox"
+              type="checkbox"
+              name="onAECRoll"
+              title="I am on the Australian Electoral Roll."
+              validationError="First name is required"
+              value={false} />
+          }
         </div>
 
         <div className="px2 pb4">
@@ -151,16 +173,14 @@ const FormContainer = React.createClass({
             inputClass="input"
             name="addr_postcode"
             title="Postcode"
-            validations="isNumeric,isLength:4"
             validationErrors={{
               isRequired: 'Postcode required',
-              isNumeric: 'Only numbers allowed',
-              isLength: 'Length needs to be 4 digits'
             }}
             autocomplete="postal-code"
             required />
 
-          <SectionTitle text="3. Date of Birth" infoText="(Required by AEC)"/>
+
+          <SectionTitle text="3. Date of Birth" infoText={this.state.showAEC && "(Required by AEC)"}/>
           <div className="flex mxn1">
             <div className="col-3 px1 relative">
               <MyInput
@@ -231,12 +251,8 @@ const FormContainer = React.createClass({
             name="contact_number"
             title="Phone"
             autocomplete="tel"
-            validations={{
-              minLength: 8
-            }}
             validationErrors={{
-              isRequired: 'Phone number is required',
-              minLength: 'Needs to be at least 8 digits.'
+              isRequired: 'Phone number is required'
             }}
             required />
 
@@ -289,8 +305,6 @@ const FormContainer = React.createClass({
              title="I'm interested in volunteering"
              value={false}
               />
-
-
 
            <div className="buttons flex items-center mt4 mb3">
              <div>

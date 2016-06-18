@@ -331,7 +331,6 @@ $(document).ready(function() {
           faded = true
       }
 
-
       // for logo text on dark background
       if (opacity >= 0.1) {
         $('.js-flux-text-darktheme').css({ fill: "#222" })
