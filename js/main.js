@@ -23,13 +23,83 @@ checkReferrer = (function() {
   }
 }());
 
+fluxAnnounce = (function() {
+  return {
+    closeModal: function () {
+      $('#js-modal').fadeOut('fast');
+    },
+    showModal: function() {
+      $('#js-modal').fadeIn('fast');
+    },
+    showSection: function() {
+      $('#js-announcement-home').removeClass('hide');
+    },
+    removeCounter: function() {
+      $("#countdown-wrapper").addClass('hide');
+    },
+    showModalContent: function() {
+      $('#js-modal-content').removeClass('hide');
+      $('#js-modal-loading').addClass('hide');
+    },
+    showAnnouncementContent: function() {
+      $('#js-announcement-content').removeClass('hide');
+      $('#js-announcement-loading').addClass('hide');
+    },
+    getAnnouncement: function() {
+      var $modal = {
+        wrapper: $("#js-modal"),
+        heading: $("#js-modal-heading"),
+        body: $("#js-modal-body"),
+        link: $("#js-modal-link")
+      };
+      var $announcement = {
+        wrapper: $("#js-announcement-home"),
+        heading: $("#js-callout-heading"),
+        body: $("#js-callout-body"),
+        link: $("#js-callout-link")
+      }
+      $.ajax({
+        // url: "http://flux-api-dev.herokuapp.com/api/v0/announcement",
+        url: "https://api.voteflux.org/api/v0/announcement",
+        type: 'GET',
+        error: function() {
+          console.log('error');
+          setTimeout( function() {
+            this.getAnnouncement();
+          }, 1000);
+        },
+        success: function(response) {
+
+          if (Boolean($modal.wrapper)) {
+            $modal.heading.html(response.heading);
+            $modal.body.html(response.body);
+            $modal.link.prop("href", response.link)
+          }
+          if (Boolean($announcement.wrapper)) {
+            $announcement.heading.html(response.heading);
+            $announcement.body.html(response.body);
+            $announcement.link.prop("href", response.link)
+          }
+          fluxAnnounce.showModalContent();
+          fluxAnnounce.showAnnouncementContent();
+        }
+      });
+    }
+  }
+}());
 
 $(document).ready(function() {
+
+  // close ANNOUNCEMENT modal
+  $('#js-modal-close').on('click', function() {
+    fluxAnnounce.closeModal();
+  })
+
+  //referrer
   if(window.location.hostname === 'localhost') {
     // checkReferrer.addTestParam('r')
   }
   var referrer = checkReferrer.getParam('r');
-
   if(referrer){
     localStorage.setItem("signup_referral", referrer);
   }
@@ -45,23 +115,37 @@ $(document).ready(function() {
 
   // countdown
   if( $('#clock').length ) {
-    var countdownTo = new Date(1465948800*1000);  // June 15th 10am
+    var countdownTo = new Date((1465948800) * 1000);  // June 15th 10am
+    var now = new Date();
 
-    $('#clock').countdown(countdownTo, function(event) {
-       $(this).html(event.strftime(
-            '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%d</h3> <h6 class="m0 muted">Day%!D</h6> </div>'
+    var countdownOver = function (event) {
+      fluxAnnounce.getAnnouncement();
+      fluxAnnounce.showSection();
+      fluxAnnounce.removeCounter();
+    };
+    var countdownFinished = function(event){
+      countdownOver(event);
+      fluxAnnounce.showModal();
+    };
+
+    if (countdownTo > now) {
+      $('#clock').countdown(countdownTo, function (event) {
+        $(this).html(event.strftime(
+          '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%d</h3> <h6 class="m0 muted">Day%!D</h6> </div>'
           + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%H</h3> <h6 class="m0 muted">Hour%!H</h6> </div>'
           + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%M</h3> <h6 class="m0 muted">Minute%!M</h6> </div>'
           + '<div class="inline-block pl1"> <h3 class="sm-h2 m0 bold">%S</h3> <h6 class="m0 muted">Second%!S</h6> </div>' + '</div>'));
-    })
-    .on('finish.countdown', function(event){
-      $(this).html('THE BIG ANNOUNCEMENT!');
-    });
+      })
+        .on('finish.countdown', countdownFinished);
+    } else {
+      countdownOver();
+    }
 
     var countDownHeight = $("#countdown-wrapper").outerHeight(true);
     $('footer').css({'margin-bottom': countDownHeight + 'px'})
   }
 
+  // candidates slider
   if ( $('#js-candidates').length != 0 ) {
     // init slick carousel
     $('#js-candidates').slick({
@@ -120,8 +204,6 @@ $(document).ready(function() {
   };
 
 
-
-
   var $root = $('html, body');
 
 // animate scroll behaviour on side menu
@@ -155,25 +237,7 @@ $(document).ready(function() {
   };
 
 
-
-
-
-
-  // meetup
-  // $.ajax({
-  //   url: "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=FluxSydney&sig=3ddb1a95711db994ebba2b2dc0d2e7ffb09e40fa&page=200&fields=&sig_id=96374432&order=time&desc=false&status=upcoming",
-  //   error: function() {
-  //     console.log('error');
-  //   },
-  //   success: function(response) {
-  //     console.log(response);
-  //     var d = response.results[0];
-
-  //   },
-  //   type: 'GET'
-  // })
-
-  // get info ajax request
+  // get member and volenteer info ajax request
   var getMembers = function() {
     $.ajax({
       url: "https://api.voteflux.org/api/v0/getinfo",
@@ -209,13 +273,14 @@ $(document).ready(function() {
   setInterval(getMembers, interval);
 
 
+  // footer date
 	var dteNow = new Date();
 	var intYear = dteNow.getFullYear();
   var elemYear = document.getElementById("js-footer-year");
 	elemYear.innerHTML = intYear
 
 
-  //  menu
+  // nav menu
   var isOpen = true;
   var transitionTime = 150;
 
@@ -245,7 +310,6 @@ $(document).ready(function() {
     // for hamburger animation
     $("#js-menu-button").toggleClass('is-active');
   };
-
 
   var fadeStart = 0
   var fadeUntil = 150
