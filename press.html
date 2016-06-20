@@ -18,8 +18,9 @@ nav-order: 40
         font-size="h0"
         text="In the news" %}
     </div>
-
-    {% for article in site.data.articles %}
+	
+	{% assign sorted = (site.data.articles | sort: 'date') | reverse %}
+    {% for article in sorted %}
         <div class="mb3">
           <hr class="border-bottom accent-muted mb1 muted">
           <div class="flex flex-column justify-between height-2 mb4">
