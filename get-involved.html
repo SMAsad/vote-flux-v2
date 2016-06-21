@@ -9,11 +9,11 @@ nav-order: 35
 
 detail:
  - copy: | 
-     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+     
 
 volunteer:
  - title: Staff Campaign Contact Info
-   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   byline: 
    contacts:
       - title: "National Campaign Field Organiser"
         name: "Zee Cohen"
@@ -25,7 +25,7 @@ volunteer:
         email: "eli.sanchez@voteflux.org"
      
  - title: Flux Headquarters
-   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   byline: 
    copy: |
 
    offices:
@@ -40,11 +40,11 @@ volunteer:
         mapslink: "https://goo.gl/maps/WQDexT7hHXk"
         
  - title: Local Events
-   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   byline: 
    socialfeed: true
    
  - title: Volunteer Staff
-   byline: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+   byline: 
    groups:
       - grouptitle: "Team NSW"
         people: 
@@ -73,10 +73,11 @@ volunteer:
 ---
 
 {% include navbar.html %}
+
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '1066378810108588',
+      appId      : 'your-app-id',
       xfbml      : true,
       version    : 'v2.6'
     });
@@ -89,13 +90,6 @@ volunteer:
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<script>
-// Only works after `FB.init` is called
-function myFacebookLogin() {
-  FB.login(function(){}, {scope: 'publish_actions'});
-}
 </script>
 
 
@@ -160,7 +154,7 @@ function myFacebookLogin() {
 				{% endif %}
 				
 				{% if volunteer.socialfeed %}
-					Facebook events feed to be placed here
+					
 				{% endif %}
 			</div>
 		{% endfor %}
