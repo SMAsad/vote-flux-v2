@@ -15,6 +15,17 @@ hero-copy: >
 
 hero-action: On July 2 &mdash; Vote Flux
 
+# Leadership
+leaders:
+  - name: Nathan Spataro
+    position: Leader
+    bio: Nathan is an ardent and outspoken proponent of free speech, civil liberties, and human rights.
+    img: /img/nathan.jpg
+  - name: Max Kaye
+    position: Deputy Leader
+    bio: Max is passionate has a lifelong interest in economics, political philosophy, disruptive startups, and theory of knowledge.
+    img: /img/max.jpg
+
 # Why Austrialia needs Flux
 why-flux-title: Why Australia needs Flux
 why-flux-copy: >
@@ -208,6 +219,7 @@ social-media:
 </section>
 
 
+
 <!-- CANDIDATES -->
 {% if site.candidates %}
 <section class="bg-near-white dark-gray pt4 pb3 sm-pr4 col-12 overflow-hidden">
@@ -238,8 +250,36 @@ social-media:
 </section>
 {% endif %}
 
+
+
+<!-- LEADERS -->
+<section class="bg-white dark-gray p3 sm-pr4 col-12 overflow-hidden">
+    {% include components/main-heading.html
+      text="Leadership"
+      font-size="h0 line-height-2"
+      font-weight="bold" %}
+    {% include components/hr-muted.html classes="mb3"%}
+    
+    {% for leaders in page.leaders %}
+	    <!-- Nathan -->
+		<div class="col col-6">
+		  <div class="col col-4 order-1">
+		    <div class="overflow-hidden circle square-1 mb3">
+		      <img src="{{base}}{{ leaders.img }}" alt="Nathan Spataro">
+		    </div>
+		  </div>
+		  <div class="col col-7 pl3 order-0">
+		    <h3 id="nathan-spataro" class="mt0 bold">{{ leaders.name }}<br /><strong>{{ leaders.position }}</strong></h3>
+		    <p>
+		      {{ leaders.bio }}
+		    </p>
+		  </div>
+		</div>
+    {% endfor %}
+</section>
+
 <!-- WHY FLUX SECTION -->
-<section class="bg-white py4 px2 md-px3">
+<section class="bg-near-white py4 px2 md-px3">
   <div class="max-width-4 mx-auto dark-gray">
     <div class="md-flex mb3">
       <div class="md-col-9">
