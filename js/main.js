@@ -89,6 +89,15 @@ fluxAnnounce = (function() {
 }());
 
 $(document).ready(function() {
+	
+	$('.youtube-wrapper').resize(updatePlayer)
+	updatePlayer();
+	
+	function updatePlayer() {
+		console.log('running');
+		var newHeight = $('.youtube-wrapper').width() / 1.77
+		$('.youtube-wrapper').css('height', newHeight)
+	}
 
   // close ANNOUNCEMENT modal
   $('#js-modal-close').on('click', function() {
@@ -341,6 +350,8 @@ $(document).ready(function() {
       }
       $fading.css('opacity',opacity);
   });
+  
+  
 
 
 });

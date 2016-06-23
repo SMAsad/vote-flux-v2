@@ -2635,12 +2635,15 @@ a {
 
 .fb-like-inline {
   position: relative;
-  display: inline-block;
   float: left;
+  display: none !important;
   margin: 0 15px 0 0;
   padding: 0; }
 
 @media only screen and (max-width: 655px) {
+  .fb-like-inline {
+    display: inline-block !important; }
+
   .fb-like-scale {
     display: none !important;
     visibility: hidden !important; } }
