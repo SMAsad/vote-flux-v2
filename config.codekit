@@ -1366,15 +1366,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/_site\/css\/main.css": {
-		"fileType": 16,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/_site\/css\/main.css",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/_site\/dashboard\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -3787,8 +3778,8 @@
 	},
 "projectAttributes": {
 	"bowerAbbreviatedPath": "",
-	"displayValue": "vote-flux-v2",
-	"displayValueWasSetByUser": 0,
+	"displayValue": "FL-FluxWebsite_Build",
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "globe_yellow"
 	},
 "projectSettings": {

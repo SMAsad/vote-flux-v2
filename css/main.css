@@ -2629,6 +2629,21 @@ a {
 .bg-facebook {
   background-color: #3b5998 !important; }
 
+.fb-like-scale {
+  transform-origin: bottom right;
+  transform: scale(2.2); }
+
+.fb-like-inline {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin: 0 15px 0 0;
+  padding: 0; }
+
+@media only screen and (max-width: 655px) {
+  .fb-like-scale {
+    display: none !important;
+    visibility: hidden !important; } }
 .black {
   color: #0b0b0e; }
 
